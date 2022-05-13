@@ -7,9 +7,9 @@ def linkChecks() {
 }
 
 def call() {
-
   pipeline {
     agent any
+
     stages {
        // For Each Commit
       stage('Lint Checks') {
@@ -18,6 +18,8 @@ def call() {
             linkChecks()
             }
           }
-       } // End of Stages
-    }  
+       } 
+    }  // End of Stages
   }
+
+}
