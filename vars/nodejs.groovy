@@ -7,6 +7,7 @@ def linkChecks() {
 }
 
 def call() {
+
   pipeline {
     agent any
     stages {
@@ -14,8 +15,9 @@ def call() {
       stage('Lint Checks') {
         steps {
           script {
-            nodejs.linkChecks()
+            linkChecks()
             }
           }
        } // End of Stages
-  }  
+    }  
+  }
