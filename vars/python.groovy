@@ -11,6 +11,9 @@ def call() {
   pipeline {
     agent any
 
+    environment {
+      SONAR = credentials('SONAR')
+    }
     stages {
        // For Each Commit
       stage('Lint Checks') {
@@ -20,6 +23,13 @@ def call() {
             }
           }
        } 
+      stage('Sonar Checks') {
+        steps {
+          script {
+            common.sonarCheck()
+            }
+          }
+       }           
     }  // End of Stages
   }
 
