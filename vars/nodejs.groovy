@@ -8,7 +8,7 @@ def linkChecks() {
 
 def sonarCheck() {
   sh '''
-    sonar-scanner -Dsonar.host.url=http://172.31.11.110:9000 -Dsonar.sources=. -Dsonar.projectKey=${COMPONENT}
+    sonar-scanner -Dsonar.host.url=http://172.31.11.110:9000 -Dsonar.sources=. -Dsonar.projectKey=${COMPONENT} -Dsonar.login=${SONAR_USR} -Dsonar.password=${SONAR_PSW}
   '''
 }
 
@@ -16,6 +16,9 @@ def call() {
   pipeline {
     agent any
 
+    environment {
+      SONAR = credentials('SONAR')
+    }
     stages {
        // For Each Commit
       stage('Lint Checks') {
