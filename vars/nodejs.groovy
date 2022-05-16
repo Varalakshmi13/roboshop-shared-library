@@ -6,6 +6,12 @@ def linkChecks() {
  '''
 }
 
+def sonarCheck() {
+  sh '''
+    sonar-scanner -Dsonar.host.url=http://172.31.11.110:9000 -Dsonar.sources=. -Dsonar.projectKey=${COMPONENT}
+  '''
+}
+
 def call() {
   pipeline {
     agent any
@@ -19,6 +25,13 @@ def call() {
             }
           }
        } 
+      stage('Sonar Checks') {
+        steps {
+          script {
+            sonarCheck()
+            }
+          }
+       }        
     }  // End of Stages
   }
 
