@@ -29,7 +29,31 @@ def call() {
             common.sonarCheck()
             }
           }
-       }        
+       }  
+
+      stage('Test Cases') {
+
+        parallel {
+
+          stage('Unit Tests') {
+            steps {
+              sh 'echo Unit Tests'
+            }
+          }
+
+          stage('Integration Tests') {
+            steps {
+              sh 'echo Integrtion Tests'
+            }
+          }
+
+          stage('Functional Tests') {
+            steps {
+              sh 'echo Functionl Tests'
+            }
+          }                    
+        }
+      }              
     }  // End of Stages
   }
 
