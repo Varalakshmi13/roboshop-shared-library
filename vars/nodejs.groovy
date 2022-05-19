@@ -62,7 +62,7 @@ def call() {
 
       stage('Upload Artifacts') {
             steps {
-              sh 'Upload Artifacts'
+              sh 'echo Upload Artifacts'
             }
           }             
     }  // End of Stages
