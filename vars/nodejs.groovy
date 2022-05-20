@@ -84,7 +84,7 @@ def call() {
       stage('Upload Artifacts') {
         when {
           expression { env.TAG_NAME != null}
-          expression { env.UPLOAD_STATUS = ""}
+          expression { env.UPLOAD_STATUS == ""}
         }
         steps {
             sh '''
