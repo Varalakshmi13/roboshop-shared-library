@@ -12,6 +12,7 @@ def call() {
 
     environment {
       SONAR = credentials('SONAR')
+      NEXUS = credentials('NEXUS')
     }
     stages {
        // For Each Commit
@@ -55,16 +56,27 @@ def call() {
         }
       }  
       stage('Prepare Artifacts') {
-            steps {
-              sh 'echo Prepare Artifacts'
-            }
-          }    
+        when {
+          expression { env.TAG_NAME != null}
+        }
+        steps {
+            sh '''
+              npm install
+              zip -r ${COMPONENT}.zip node_modules server.js
+            '''
+        }
+      }    
 
       stage('Upload Artifacts') {
-            steps {
-              sh 'echo Upload Artifacts'
-            }
-          }             
+        when {
+          expression { env.TAG_NAME != null}
+        }
+        steps {
+            sh '''
+              CURL -V -U ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${COMPONENT}.zip http://3.236.191.197:8081/repository/${COMPONENT}/${COMPONENT}.zip
+            '''
+        }
+      }              
     }  // End of Stages
   }
 
