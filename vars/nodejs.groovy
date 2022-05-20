@@ -55,9 +55,10 @@ def call() {
           }                    
         }
       }  
+
       stage('check the release') {
         when {
-          expression { env.TAG_NAME != null
+          expression { env.TAG_NAME != null}
         } 
         steps {
           script {
@@ -66,6 +67,7 @@ def call() {
           }
         }
       }
+
       stage('Prepare Artifacts') {
         when {
           expression { env.TAG_NAME != null}
