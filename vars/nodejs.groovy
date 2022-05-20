@@ -73,7 +73,7 @@ def call() {
         }
         steps {
             sh '''
-              CURL -V -U ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${COMPONENT}.zip http://3.236.191.197:8081/repository/${COMPONENT}/${COMPONENT}.zip
+              CURL -V -U ${NEXUS_USR}:${NEXUS_PSW} --upload-file ${COMPONENT}.zip http://172.31.5.216:8081/repository/${COMPONENT}/${COMPONENT}.zip
             '''
         }
       }              
