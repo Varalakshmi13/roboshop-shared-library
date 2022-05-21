@@ -48,26 +48,18 @@ def lintChecks() {
 
 def testCheck() {
   stage('Test Cases') {
+        def stages = [:]
 
-        parallel {
-
-          stage('Unit Tests') {
-            steps {
-              sh 'echo Unit Tests'
-            }
-          }
-
-          stage('Integration Tests') {
-            steps {
-              sh 'echo Integrtion Tests'
-            }
-          }
-
-          stage('Functional Tests') {
-            steps {
-              sh 'echo Functionl Tests'
-            }
-          }                    
+        stages["Unit Tests"] = {
+            echo "build for mac"
         }
-      }  
+        stages["Integration Tests"] = {
+            echo "build for linux"
+        }
+        stages["Functional Tests"] = {
+            echo "build for linux"
+        }
+
+        parallel(stages)
+    }
 }
