@@ -1,55 +1,15 @@
-env.APP_TYPE = "maven"
-
 def call() {
-  pipeline {
-    agent any
-    
-    environment {
-      SONAR = credentials('SONAR')
-    }    
 
-    stages {
-       // For Each Commit
-      stage('Lint Checks') {
-        steps {
-          script {
-            linkChecks()
-            }
-          }
-       } 
-      stage('Sonar Checks') {
-        steps {
-          script {
-            sh 'mvn clean compile'
-            env.ARGS="-Dsonar.java.binaries=target/"
-            common.sonarCheck()
-            }
-          }
-       }      
-      stage('Test Cases') {
+  node {
+    git branch: 'main', url: "https://github.com/Varalakshmi13/${COMPONENT}"
+    env.APP_TYPE = "nodejs"
+    common.lintChecks()
+    env.ARGS="-Dsonar.java.binaries=target/"
+    common.sonarCheck()
+    common.testCases()
 
-        parallel {
-
-          stage('Unit Tests') {
-            steps {
-              sh 'echo Unit Tests'
-            }
-          }
-
-          stage('Integration Tests') {
-            steps {
-              sh 'echo Integrtion Tests'
-            }
-          }
-
-          stage('Functional Tests') {
-            steps {
-              sh 'echo Functionl Tests'
-            }
-          }                    
-        }
-      }             
-    }  // End of Stages
+    if (env.TAG_NAME != null) {
+      common.artifacts()
+    }
   }
-
 }

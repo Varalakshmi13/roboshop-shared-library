@@ -77,11 +77,14 @@ def artifacts() {
       if (env.APP_TYPE == "nodejs") {
         sh '''
           npm install
-          zip -r ${COMPONENT}-${TAG_NAME}.zip node_modules server.js      '''
+          zip -r ${COMPONENT}-${TAG_NAME}.zip node_modules server.js      
+          '''
       }
       else if (env.APP_TYPE == "maven") {
         sh '''
-          echo
+          mvn clean package
+          mv target/${COMPONENT}-1.0.jar ${COMPONENT}.jar 
+          zip -r ${COMPONENT}-${TAG_NAME}.zip node_modules server.js
         '''
       }
       else if (env.APP_TYPE == "python") {
