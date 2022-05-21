@@ -3,9 +3,9 @@ def call() {
   node {
     sh 'rm -rf *'
     git branch: 'main', url: "https://github.com/Varalakshmi13/${COMPONENT}"
-    env.APP_TYPE = "maven"
+    env.APP_TYPE = "nginx"
     common.lintChecks()
-    env.ARGS="-Dsonar.java.binaries=target/"
+    env.ARGS="-Dsonar.sources=."
     common.sonarCheck()
     common.testCases()
 
