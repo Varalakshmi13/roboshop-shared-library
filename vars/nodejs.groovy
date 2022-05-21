@@ -1,5 +1,3 @@
-
-
 def call() {
   node {
     env.APP_TYPE = "nodejs"
