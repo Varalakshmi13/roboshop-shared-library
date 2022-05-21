@@ -9,7 +9,7 @@ def sonarCheck() {
 }
 
 
-def linkChecks() {
+def lintChecks() {
   stage ('Lint Checks') {
   if (env.APP_TYPE == "nodejs") {
     sh ''' 
