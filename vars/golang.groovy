@@ -1,52 +1,15 @@
 def call() {
-  pipeline {
-    agent any
 
-    environment {
-      SONAR = credentials('SONAR')
+  node {
+    git branch: 'main', url: "https://github.com/Varalakshmi13/${COMPONENT}"
+    env.APP_TYPE = "golang"
+    common.lintChecks()
+    env.ARGS="-Dsonar.sources=."
+    common.sonarCheck()
+    common.testCases()
+
+    if (env.TAG_NAME != null) {
+      common.artifacts()
     }
-    stages {
-       // For Each Commit
-      stage('Lint Checks') {
-        steps {
-          script {
-            linkChecks()
-            }
-          }
-       } 
-      stage('Sonar Checks') {
-        steps {
-          script {
-            env.ARGS="-Dsonar.sources=."
-            common.sonarCheck()
-            }
-          }
-       }  
-
-      stage('Test Cases') {
-
-        parallel {
-
-          stage('Unit Tests') {
-            steps {
-              sh 'echo Unit Tests'
-            }
-          }
-
-          stage('Integration Tests') {
-            steps {
-              sh 'echo Integrtion Tests'
-            }
-          }
-
-          stage('Functional Tests') {
-            steps {
-              sh 'echo Functionl Tests'
-            }
-          }                    
-        }
-      }              
-    }  // End of Stages
   }
-
 }
