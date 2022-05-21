@@ -89,7 +89,7 @@ def artifacts() {
       }
       else if (env.APP_TYPE == "python") {
         sh '''
-          echo
+          zip -r ${COMPONENT}-${TAG_NAME}.zip *.py *.ini requirements.txt
         '''
       }
       else if (env.APP_TYPE == "golang") {
