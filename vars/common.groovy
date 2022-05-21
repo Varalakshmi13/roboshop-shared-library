@@ -46,7 +46,7 @@ def lintChecks() {
 }
 
 
-def testCheck() {
+def testCases() {
   stage('Test Cases') {
         def stages = [:]
 
