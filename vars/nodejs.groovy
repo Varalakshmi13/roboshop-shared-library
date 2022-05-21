@@ -7,4 +7,4 @@ def call() {
     common.sonarCheck()
     common.testCheck()
   }
-
+}
