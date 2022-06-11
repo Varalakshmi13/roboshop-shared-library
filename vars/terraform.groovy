@@ -6,9 +6,9 @@ def call() {
     ])
 
     node {
-        ansicolor('xterm') {
-        sh 'rm -rf'
-        git branch: 'main', url: "https://github.com/Varalakshmi13/${REPONAME}"
+        ansiColor('xterm') {
+          sh 'rm -rf'
+          git branch: 'main', url: "https://github.com/Varalakshmi13/${REPONAME}"
 
         stage('Terrafile INIT') {
             sh 'terrafile -f env-${ENV}/Terrafile'
