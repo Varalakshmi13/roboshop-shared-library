@@ -6,7 +6,7 @@ def call() {
     ])
 
     node {
-
+        ansicolor('xterm') {
         sh 'rm -rf'
         git branch: 'main', url: "https://github.com/Varalakshmi13/${REPONAME}"
 
@@ -21,5 +21,9 @@ def call() {
         stage('Terraform Plan') {
             sh 'terraform plan -var-file=env-${ENV}/${ENV}.tfvars'
         }
-    }
+
+        stage('Terraform Apply') {
+            sh 'terraform apply -var-file=env-${ENV}/${ENV}.tfvars'
+        }
+    } 
 }
