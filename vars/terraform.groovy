@@ -1,7 +1,7 @@
 def call() {
     properties([
         parameters([
-            choice(choices: ['dev\nprod'], description: "Pick Env", name: "ENV"),
+            choice(choices: 'dev\nprod', description: "Pick Env", name: "ENV"),
         ]),
     ])
 
