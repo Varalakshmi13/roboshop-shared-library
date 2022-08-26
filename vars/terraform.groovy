@@ -1,4 +1,9 @@
 def call() {
+
+    TERRAFORM_DIR = "null"
+    if (TERRAFORM_DIR == "null") {
+       env.TERRAFORM_DIR == "./"
+    }
     properties([
         parameters([
             choice(choices: 'dev\nprod', description: "Pick Env", name: "ENV"),
@@ -11,7 +16,10 @@ def call() {
           git branch: 'main', url: "https://github.com/Varalakshmi13/${REPONAME}"
 
           stage('Terrafile INIT') {
-              sh 'terrafile -f env-${ENV}/Terrafile'
+              sh '''
+                cd ${TERRAFORM_DIR}
+                terrafile -f env-${ENV}/Terrafile
+                '''
           }
 
           stage('Terraform init') {
