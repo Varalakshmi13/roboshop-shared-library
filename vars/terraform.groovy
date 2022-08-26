@@ -23,15 +23,24 @@ def call() {
           }
 
           stage('Terraform init') {
-              sh 'terraform init -backend-config=env-${ENV}/${ENV}-backend.tfvars'
+              sh '''
+                cd ${TERRAFORM_DIR}
+                terraform init -backend-config=env-${ENV}/${ENV}-backend.tfvars
+                '''
           }
 
           stage('Terraform Plan') {
-              sh 'terraform plan -var-file=env-${ENV}/${ENV}.tfvars'
+              sh '''
+                cd ${TERRAFORM_DIR}
+                terraform plan -var-file=env-${ENV}/${ENV}.tfvars
+                '''
           }
 
           stage('Terraform Apply') {
-              sh 'terraform apply -var-file=env-${ENV}/${ENV}.tfvars -auto-approve'
+              sh '''
+                cd ${TERRAFORM_DIR}
+                terraform apply -var-file=env-${ENV}/${ENV}.tfvars -auto-approve
+                '''
           }
         } 
 
