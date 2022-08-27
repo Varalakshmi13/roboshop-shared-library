@@ -1,8 +1,8 @@
 def call() {
 
     TERRAFORM_DIR = "null"
-    if (TERRAFORM_DIR == "null") {
-       env.TERRAFORM_DIR = "./"
+    if (!env.TERRAFORM_DIR) {
+        env.TERRAFORM_DIR = "./"
     }
     properties([
         parameters([
