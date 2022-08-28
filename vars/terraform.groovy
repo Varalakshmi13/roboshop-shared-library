@@ -7,10 +7,8 @@ def call() {
     properties([
         parameters([
             choice(choices: 'dev\nprod', description: "Pick Env", name: "ENV"),
+            string(choices: 'APP_VERSION', description: "APP VERSION", name: "APP_VERSION"),
         ]),
-        parameters([
-                choice(choices: 'APP_VERSION', description: "APP VERSION", name: "APP_VERSION"),
-        ])
     ])
 
     node {
