@@ -34,7 +34,7 @@ def call() {
               sh '''
                 cd ${TERRAFORM_DIR}
                 export TF_VAR_APP_VERSION=${APP_VERSION}
-                terraform plan -var-file=env-${ENV}/${ENV}.tfvars -var APP_VERSION=${APP_VERSION}
+                terraform plan -var-file=env-${ENV}/${ENV}.tfvars
                 '''
           }
 
